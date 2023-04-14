@@ -34,12 +34,12 @@ SRC_FILES =	 ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 			 ft_lstmap.c
 SRCS_LIBFT = $(addprefix $(SRCS_LIBFT_DIR), $(SRC_FILES))
 
-SRCS_PRINTF_DIR = ft_printf/srcs/
+SRCS_PRINTF_DIR = ft_printf/
 SRC_PRINTF_FILES = print_c.c print_d.c print_p.c print_s.c print_u.c print_x.c \
 				   ft_printf.c
 SRCS_PRINTF = $(addprefix $(SRCS_PRINTF_DIR), $(SRC_PRINTF_FILES))
 
-SRCS_GNL_DIR = get_next_line/srcs/
+SRCS_GNL_DIR = get_next_line/
 SRC_GNL_FILES =	get_next_line.c
 SRCS_GNL = $(addprefix $(SRCS_GNL_DIR), $(SRC_GNL_FILES))
 
