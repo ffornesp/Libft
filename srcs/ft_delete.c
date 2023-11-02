@@ -1,33 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_d.c                                          :+:      :+:    :+:   */
+/*   ft_delete.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/03 17:16:58 by ffornes-          #+#    #+#             */
-/*   Updated: 2023/04/14 10:44:42 by ffornes-         ###   ########.fr       */
+/*   Created: 2023/04/18 16:44:55 by ffornes-          #+#    #+#             */
+/*   Updated: 2023/04/28 12:44:06 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include <stdlib.h>
 
-int	print_d(va_list args, int count)
+void	*ft_delete(void *p)
 {
-	long int	i;
-
-	i = (long int)va_arg(args, int);
-	ft_putnbr_fd(i, 1);
-	if (i <= 0)
-		count++;
-	if (i < 0)
-		i *= -1;
-	while (i != 0)
-	{
-		if (i < 10)
-			i = 0;
-		i /= 10;
-		count++;
-	}
-	return (count);
+	free(p);
+	p = NULL;
+	return (p);
 }

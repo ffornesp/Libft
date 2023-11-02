@@ -6,11 +6,12 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 18:17:19 by ffornes-          #+#    #+#             */
-/*   Updated: 2023/04/14 10:50:08 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/07/26 17:24:03 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "libft_defs.h"
 
 void	ft_lstiter(t_list *lst, void (*f)(void *))
 {

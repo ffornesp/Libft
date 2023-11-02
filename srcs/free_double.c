@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_s.c                                          :+:      :+:    :+:   */
+/*   free_double.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/03 17:14:50 by ffornes-          #+#    #+#             */
-/*   Updated: 2023/04/14 10:45:03 by ffornes-         ###   ########.fr       */
+/*   Created: 2023/06/27 12:51:14 by ffornes-          #+#    #+#             */
+/*   Updated: 2023/09/27 14:54:48 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include <stdlib.h>
 
-int	print_s(va_list args, int count)
+void	*free_double(void **elem)
 {
-	char	*str;
+	char	**aux;
+	int		i;
 
-	str = va_arg(args, char *);
-	if (!str)
-		str = "(null)";
-	count += ft_strlen(str);
-	while (*str)
-		ft_putchar_fd(*(str++), 1);
-	return (count);
+	aux = (char **)elem;
+	i = 0;
+	while (aux[i])
+	{
+		free(aux[i]);
+		i++;
+	}
+	free(aux);
+	return (NULL);
 }

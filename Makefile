@@ -6,19 +6,17 @@
 #    By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/24 19:51:17 by ffornes-          #+#    #+#              #
-#    Updated: 2023/04/14 14:37:20 by ffornes-         ###   ########.fr        #
+#    Updated: 2023/09/27 16:14:24 by laugarci         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-#################################### HDRS #####################################
+INCLUDES = include/
 
-HDR_DIR = include/
-HDR_FILES = libft.h ft_printf.h get_next_line.h
-HDRS = $(addprefix $(HDR_DIR), $(HDR_FILES))
-
-#################################### SRCS #####################################
+###############################################################################
+#									SRCS									  #
+###############################################################################
 
 SRCS_LIBFT_DIR = srcs/
 SRC_FILES =	 ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
@@ -31,72 +29,81 @@ SRC_FILES =	 ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 			 ft_putnbr_fd.c \
 			 ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
 			 ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c \
-			 ft_lstmap.c
-SRCS_LIBFT = $(addprefix $(SRCS_LIBFT_DIR), $(SRC_FILES))
+			 ft_lstmap.c \
+			 ft_delete.c ft_lstpos.c ft_atoi_base.c free_double.c ft_atoll.c 
 
-SRCS_PRINTF_DIR = ft_printf/
-SRC_PRINTF_FILES = print_c.c print_d.c print_p.c print_s.c print_u.c print_x.c \
-				   ft_printf.c
-SRCS_PRINTF = $(addprefix $(SRCS_PRINTF_DIR), $(SRC_PRINTF_FILES))
+SRCS_LIBFT = $(addprefix $(SRCS_LIBFT_DIR), $(SRC_FILES))
 
 SRCS_GNL_DIR = get_next_line/
 SRC_GNL_FILES =	get_next_line.c
 SRCS_GNL = $(addprefix $(SRCS_GNL_DIR), $(SRC_GNL_FILES))
 
-#################################### OBJS #####################################
+###############################################################################
+#									OBJS									  #
+###############################################################################
 
 OBJS_LIBFT_DIR =	objs/
 OBJ_LIBFT_FILES =	$(SRC_FILES:.c=.o)
 OBJS_LIBFT = $(addprefix $(OBJS_LIBFT_DIR), $(OBJ_LIBFT_FILES))
 
-OBJS_PRINTF_DIR =	ft_printf/objs/
-OBJ_PRINTF_FILES =	$(SRC_PRINTF_FILES:.c=.o)
-OBJS_PRINTF = $(addprefix $(OBJS_PRINTF_DIR), $(OBJ_PRINTF_FILES))
-
 OBJS_GNL_DIR =	get_next_line/objs/
 OBJ_GNL_FILES = $(SRC_GNL_FILES:.c=.o)
 OBJS_GNL = $(addprefix $(OBJS_GNL_DIR), $(OBJ_GNL_FILES))
 
-OBJS = $(OBJS_LIBFT) $(OBJS_PRINTF) $(OBJS_GNL)
+OBJS = $(OBJS_LIBFT) $(OBJS_GNL)
+
+###############################################################################
+#									DEPS									  #
+###############################################################################
+
+DEP_LIBFT_FILES = $(SRC_FILES:.c=.d)
+DEP_GNL_FILES = $(SRC_GNL_FILES:.c=.d)
+
+DEPS_LIBFT = $(addprefix $(OBJS_LIBFT_DIR), $(DEP_LIBFT_FILES))
+DEPS_GNL = $(addprefix $(OBJS_GNL_DIR), $(DEP_GNL_FILES))
+
+DEPS = $(DEPS_LIBFT) $(DEPS_GNL)
 
 ###############################################################################
 #									OTHER									  #
 ###############################################################################
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -MMD
 RM = rm -f
 AR = ar rc
+
+INCLUDE = -I include/
 
 ###############################################################################
 #									RULES									  #
 ###############################################################################
 
+all: 		$(NAME)
 
-
-all: 		$(NAME) $(HDRS)
-
-$(NAME):	$(OBJS_LIBFT) $(OBJS_PRINTF) $(OBJS_GNL)
+$(NAME):	$(OBJS_LIBFT_DIR) $(OBJS_GNL_DIR) $(OBJS)
 			$(AR) $@ $(OBJS)
 
-$(OBJS_DIR):
-			mkdir $@
+$(OBJS_LIBFT_DIR):		
+						@mkdir $(OBJS_LIBFT_DIR)
 
-$(OBJS_LIBFT_DIR)%.o:	$(SRCS_LIBFT_DIR)%.c $(HDRS)
-						$(CC) $(CFLAGS) -I $(HDR_DIR) -c $< -o $@
+$(OBJS_GNL_DIR):
+						@mkdir $(OBJS_GNL_DIR)
 
-$(OBJS_PRINTF_DIR)%.o:	$(SRCS_PRINTF_DIR)%.c $(HDRS)
-						$(CC) $(CFLAGS) -I $(HDR_DIR) -c $< -o $@
+$(OBJS_LIBFT_DIR)%.o:	$(SRCS_LIBFT_DIR)%.c
+						$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
-$(OBJS_GNL_DIR)%.o:		$(SRCS_GNL_DIR)%.c $(HDRS)
-						$(CC) $(CFLAGS) -I $(HDR_DIR) -c $< -o $@
+$(OBJS_GNL_DIR)%.o:		$(SRCS_GNL_DIR)%.c
+						$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 clean: 		
-			@$(RM) $(OBJS)
+			@$(RM) $(OBJS) $(DEPS)
 
 fclean: 	clean
 			@$(RM) $(NAME)
 
 re:			fclean all
+
+-include $(DEPS)
 
 .PHONY: all clean fclean re

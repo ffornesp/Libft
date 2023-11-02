@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   libft_defs.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/24 16:43:37 by ffornes-          #+#    #+#             */
-/*   Updated: 2023/04/14 13:50:44 by ffornes-         ###   ########.fr       */
+/*   Created: 2023/07/26 17:21:54 by ffornes-          #+#    #+#             */
+/*   Updated: 2023/07/26 17:22:27 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include <stdarg.h>
-# include "libft.h"
+#ifndef LIBFT_DEFS_H
+# define LIBFT_DEFS_H
 
-int		ft_printf(const char *str, ...);
-int		print_c(va_list args, int count);
-int		print_s(va_list args, int count);
-int		print_p(va_list args, int count);
-int		print_d(va_list args, int count);
-int		print_u(va_list args, int count);
-int		print_x(va_list args, int count, char c);
+typedef struct s_list
+{
+	void	*content;
+	void	*next;
+}			t_list;
 
 #endif

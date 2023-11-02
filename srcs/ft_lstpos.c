@@ -1,22 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_c.c                                          :+:      :+:    :+:   */
+/*   ft_lstpos.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/03 17:13:37 by ffornes-          #+#    #+#             */
-/*   Updated: 2023/04/14 10:44:21 by ffornes-         ###   ########.fr       */
+/*   Created: 2023/04/20 14:32:17 by ffornes-          #+#    #+#             */
+/*   Updated: 2023/07/26 17:25:57 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
+#include "libft_defs.h"
 
-int	print_c(va_list args, int count)
+int	ft_lstpos(t_list *lst, int *value)
 {
-	char	c;
+	int	i;
+	int	*tmp;
 
-	c = (char)va_arg(args, int);
-	ft_putchar_fd(c, 1);
-	return (count + 1);
+	i = 0;
+	tmp = lst->content;
+	while (lst)
+	{
+		if (*tmp == *value)
+			return (i);
+		lst = lst->next;
+		tmp = lst->content;
+		i++;
+	}
+	return (i);
 }
